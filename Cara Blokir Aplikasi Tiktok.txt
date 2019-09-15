@@ -1,0 +1,7 @@
+# Cara Blokir Aplikasi Tiktok
+
+/ip firewall filter
+add action=drop chain=forward protocol=tcp tls-host=*.musical.ly
+add action=drop chain=forward content=tiktokv.com 
+add action=drop chain=forward content=musical.ly
+add action=drop chain=forward content=tiktok

@@ -1,0 +1,8 @@
+# cara blokir akses ke modem
+
+/ip firewall address-list
+add address=192.168.1.1 list=IP-MODEM
+add address=192.168.2.1 list=IP-MODEM
+
+/ip firewall filter
+add action=drop chain=forward comment="PROTEKSI MODEM" dst-address-list=IP-MODEM

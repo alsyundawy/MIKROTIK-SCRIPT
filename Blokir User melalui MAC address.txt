@@ -1,0 +1,5 @@
+# Cara Blokir User melalui MAC address
+
+/ip fir fi
+add chain=input action=drop src-mac-address=74:EA:3A:xx:xx:xx
+add chain=forward action=drop src-mac-address=74:EA:3A:xx:xx:xx

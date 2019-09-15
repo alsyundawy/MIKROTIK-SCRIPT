@@ -1,0 +1,16 @@
+Berapa besaran Bandwidth yang dibutuhkan untuk Youtube atau Streaming Video?
+
+144p = ±200Kbps (0.2Mbps)
+240p = ±300Kbps (0.3Mbps)
+360p = ±400Kbps (0.4Mbps)
+480p = ±500Kbps (0.5Mbps)
+720p @30fps = ±1.500Kbps (1.5Mbps)
+720p @60fps = ±2.250Kbps (2.2Mbps)
+1080p @30fps = ±3.000Kbps (3Mbps)
+1080p @60fps = ±4.500Kbps (4.5Mbps)
+1440p @30fps = ±6.000Kbps (6Mbps)
+1440p @60fps = ±9.000Kbps (9Mbps)
+4k / 2160p @30fps = ±13.000Kbps (13Mbps)
+4K/2160p @60fps = ±20.000Kbps (20Mbps)
+
+Disini kita bisa dengan mudah menentukan nilai PCQ terbaik untuk kebutuhan Bandwidth Streaming yang layak diterapkan pada setingan Mikrotik agar bisa di tonton lancar tanpa Buffering.

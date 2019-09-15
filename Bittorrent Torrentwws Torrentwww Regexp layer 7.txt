@@ -1,0 +1,10 @@
+# Bittorrent, Torrent-wws, Torrent-www Regexp layer 7
+/ip firewall layer7-protocol
+add name=bittorrent regexp="^(bittorrent protocol|azver1\$|get /scrape\\\?info\
+    _hash=)|d1:ad2:id20:|8'7P\\)[RP]"
+add name=torrent-wws regexp="^.*(get|GET).+(torrent|info_hash|thepiratebay|iso\
+    hunt|entertane|demonoid|btjunkie|mininova|flixflux|vertor|h33t|zoozle|bitn\
+    ova|bitsoup|meganova|fulldls|btbot|fenopy|gpirate|commonbits).*\$"
+add name=torrent-www regexp="^.+(torrent|thepiratebay|isohunt|entertane|demono\
+    id|btjunkie|mininova|flixflux|vertor|h33t|zoozle|bitnova|bitsoup|meganova|\
+    fulldls|btbot|fenopy|gpirate|commonbits).*\$"

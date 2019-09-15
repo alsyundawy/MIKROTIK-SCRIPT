@@ -1,0 +1,31 @@
+Tinggal cari yang jual VPN biasanya harga kisaran 50rb/100rb perbulan
+
+Routing bisa ke DNS Google atau OpenDNS
+Google:
+8.8.8.8
+8.8.4.4
+OpenDNS:
+208.67.222.222
+208.67.220.220
+
+# Contoh Routing Ke DNS Google
+
+/interface pptp-client
+add add-default-route=no allow=pap,chap,mschap1,mschap2 connect-to=(IP VPN) dial-on-demand=no disabled=no max-mru=1460 max-mtu=1460 mrru=disabled name=MY-PPTPVPN password=xxxxx profile=default-encryption user=MYPPTPVPN
+
+/ip route
+add check-gateway=ping disabled=no distance=1 dst-address=8.8.8.8 gateway=MY-PPTPVPN scope=30 target-scope=10
+add check-gateway=ping disabled=no distance=1 dst-address=8.8.4.4 gateway=MY-PPTPVPN scope=30 target-scope=10
+add check-gateway=ping disabled=no distance=1 dst-address=208.67.222.222 gateway=MY-PPTPVPN scope=30 target-scope=10
+add check-gateway=ping disabled=no distance=1 dst-address=208.67.220.220 gateway=MY-PPTPVPN scope=30 target-scope=10
+
+/ip firewall nat
+add action=redirect chain=dstnat dst-port=53 protocol=udp
+
+/ip dns
+set allow-remote-requests=yes cache-max-ttl=1w cache-size=2048KiB max-udp-packet-size=4096 servers=8.8.8.8,8.8.4.4,208.67.222.222,208.67.220.220
+ 
+#Jangan Lupa Clear DNS
+/ip dns cache flush
+
+Semoga Membantu :)

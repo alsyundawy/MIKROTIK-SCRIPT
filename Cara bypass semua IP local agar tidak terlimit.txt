@@ -1,0 +1,26 @@
+# Cara bypass semua IP local agar tidak terlimit
+
+# paste script addlist local ke terminal
+/ip firewall address-list
+add address=0.0.0.0/8 list=LOCAL-IP
+add address=10.0.0.0/8 list=LOCAL-IP
+add address=100.64.0.0/10 list=LOCAL-IP
+add address=127.0.0.0/8 list=LOCAL-IP
+add address=169.254.0.0/16 list=LOCAL-IP
+add address=172.16.0.0/12 list=LOCAL-IP
+add address=192.0.0.0/24 list=LOCAL-IP
+add address=192.0.2.0/24 list=LOCAL-IP
+add address=192.168.0.0/16 list=LOCAL-IP
+add address=198.18.0.0/15 list=LOCAL-IP
+add address=198.51.100.0/24 list=LOCAL-IP
+add address=203.0.113.0/24 list=LOCAL-IP
+add address=224.0.0.0/4 list=LOCAL-IP
+add address=240.0.0.0/4 list=LOCAL-IP
+
+# Pastikan script ini berada pada mangle paling atas
+/ip fi ma
+add action=accept chain=prerouting dst-address-list=LOCAL-IP  src-address-list=LOCAL-IP
+add action=accept chain=postrouting dst-address-list=LOCAL-IP  src-address-list=LOCAL-IP
+add action=accept chain=forward dst-address-list=LOCAL-IP  src-address-list=LOCAL-IP
+add action=accept chain=input dst-address-list=LOCAL-IP  src-address-list=LOCAL-IP
+add action=accept chain=output dst-address-list=LOCAL-IP  src-address-list=LOCAL-IP
