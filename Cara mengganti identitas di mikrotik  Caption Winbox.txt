@@ -1,0 +1,4 @@
+# cara mengganti identitas di mikrotik / Caption Winbox
+
+/system identity
+set name="BuanaNET By BNT"

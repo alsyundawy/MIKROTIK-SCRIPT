@@ -1,0 +1,2 @@
+# script ini agar QUEUE utama selalu berada di urutan paling atas
+/queue simple move [find name="NAMA-QUEUE"] [:pick [find] 0]

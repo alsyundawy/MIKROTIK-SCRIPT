@@ -1,0 +1,8 @@
+#Memaksa agar semua client menggunakan DNS mikrotik
+
+/ip dns
+set allow-remote-requests=yes cache-max-ttl=3h cache-size=10240KiB servers=8.8.8.8,8.8.4.4,208.67.222.222,208.67.220.220,1.1.1.1,9.9.9.9
+
+/ip firewall nat
+add action=redirect chain=dstnat dst-port=53 protocol=udp to-ports=53
+add action=redirect chain=dstnat dst-port=53 protocol=tcp to-ports=53

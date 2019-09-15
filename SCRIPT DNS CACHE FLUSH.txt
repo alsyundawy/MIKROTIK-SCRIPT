@@ -1,0 +1,3 @@
+Bisa di coba di terminal, script atau di schedular
+
+/ip dns cache flush

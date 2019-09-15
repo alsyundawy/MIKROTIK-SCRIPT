@@ -1,0 +1,12 @@
+#####################################
+# Script by Agus Ramadhani
+# fb.com/buananet.pangkalanbun
+# http://www.o-om.com
+# SCRIPT name interface to default
+######################################
+:foreach i in=[/interface ethernet find ] do={ 
+:local y [/interface ethernet get $i name] ;
+:local x [/interface ethernet get $i default-name];
+:log warning "Change interface Name $y => $x"
+/interface set $y name=$x;
+}

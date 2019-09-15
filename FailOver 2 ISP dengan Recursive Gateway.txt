@@ -1,0 +1,9 @@
+# Contoh Fail Over 2 ISP dengan Recursive Gateway
+WAN-1 = IP: 192.168.2.2/24
+WAN-2 = IP: 192.168.3.2/24
+
+/ip route
+add check-gateway=ping distance=2 gateway=8.8.8.8 target-scope=30
+add check-gateway=ping distance=1 gateway=8.8.4.4 target-scope=30
+add check-gateway=ping distance=1 dst-address=8.8.8.8/32 gateway=192.168.3.1 target-scope=10
+add check-gateway=ping distance=1 dst-address=8.8.4.4/32 gateway=192.168.2.1 target-scope=10

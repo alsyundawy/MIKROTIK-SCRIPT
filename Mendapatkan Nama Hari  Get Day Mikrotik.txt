@@ -1,0 +1,40 @@
+# Calculates day of the week for a givien date
+# Month: jan,feb ... nov,dec   (must be lower-case)
+# Day: 1 - 31
+# Year: 1583 - ...
+# mmm/dd/yyyy   same format as [/system clock get date]
+# (ex. feb/19/2012)
+# by melboyscout (melboyscout [at] gmail.com)
+
+:local date [/system clock get date]
+
+# Math Calculation here
+:local result ""
+:local months [:toarray "jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec"]
+:local daytbl [:toarray "sun,mon,tue,wed,thu,fri,sat"]
+
+:local month [:pick $date 0 3]
+:local day [:pick $date 4 6]
+:local dayc [:pick $date 5 6]
+:local year [:pick $date 7 11]
+
+# if the first char is a 0 (zero) only read last char, else script fails
+:if ([:pick $date 4 5] = 0) do={ :set day ($dayc)}
+
+:local sum 0
+:local aaa 0
+:local yyy 0
+:local mmm 0
+:local nmonth 1
+
+:for mindex from=0 to=[:len $months] do={
+  :if ([:pick $months $mindex] = $month) do={:set nmonth ($mindex + 1) }
+}
+
+:set aaa ((14 - $nmonth) / 12)
+:set yyy ($year - $aaa)
+:set mmm ($nmonth + 12 * $aaa - 2)
+:set sum (7000 + $day + $yyy + ($yyy / 4) - ($yyy / 100) + ($yyy / 400) + ((31 * $mmm) / 12))
+:set sum ($sum - (($sum / 7) * 7))
+:set result [:pick $daytbl $sum]
+:log info "Today is $result"

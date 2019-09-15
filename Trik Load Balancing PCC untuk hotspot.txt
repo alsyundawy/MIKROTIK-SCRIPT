@@ -1,0 +1,6 @@
+#cara load balancing PCC untuk hotspot 
+#untuk hotspot kita hanya perlu menambahkan "hotspot=auth"
+
+/ip fi man
+add action=mark-connection chain=prerouting disabled=no dst-address-type=!local hotspot=auth in-interface=LAN new-connection-mark=WAN1_conn passthrough=yes per-connection-classifier=both-addresses-and-ports:2/0
+add action=mark-connection chain=prerouting disabled=no dst-address-type=!local hotspot=auth in-interface=LAN new-connection-mark=WAN2_conn passthrough=yes per-connection-classifier=both-addresses-and-ports:2/1

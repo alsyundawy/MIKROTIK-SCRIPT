@@ -1,0 +1,2 @@
+# cara merubah path Database User Manager ke USB
+/tool user-manager database set db-path=disk1/user-manager3

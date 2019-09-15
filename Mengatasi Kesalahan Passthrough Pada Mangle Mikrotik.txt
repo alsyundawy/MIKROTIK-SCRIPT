@@ -1,0 +1,16 @@
+foreach mrk in=("packet","connection", "routing") do={
+foreach i in=([/ip firewall mangle find where action=("mark-" . $mrk)]) do={
+:if ($mrk = "packet") do={ 
+local cmd ("ip firewall mangle set " . $i . " passthrough=no")
+:execute $cmd
+}
+:if ($mrk = "connection") do={ 
+local cmd ("ip firewall mangle set " . $i . " passthrough=yes")
+:execute $cmd
+}
+:if ($mrk = "routing") do={ 
+local cmd ("ip firewall mangle set " . $i . " passthrough=yes")
+:execute $cmd
+}
+}
+}

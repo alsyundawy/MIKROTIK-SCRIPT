@@ -1,0 +1,1 @@
+:for e from 1  to 254 do={/queue tree add name="CLIENT-$e" packet-mark="mark-pc$e" parent="GLOBAL" max-limit=2M}

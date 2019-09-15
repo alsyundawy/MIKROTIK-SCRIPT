@@ -1,0 +1,31 @@
+##### SCRIPT GET IP PUBLIC ######
+# Mengirim IP Public Jika Ada Perubahan IP ke Email. Tidak bekerja pada mikrotik dibelakang NAT. hanya berjalan di PPPOE Bridge Mikrotik
+# 1.nama-interface = Ganti dengan interface PPPoE Speedy
+# 2.to-mail@gmail.com = email tujuan
+# 3.from-mail@gmail.com = email Pengirim
+# 4.Contoh saya menggunakan Server Gmail
+#############################
+:global CekKoneksi
+/interface pppoe-client monitor nama-interface once do={
+:set CekKoneksi $status
+}
+:if ($CekKoneksi = "connected") do={
+:log info "->> Status Koneksi: $CekKoneksi ";
+:global LogIP;
+:local IPBaru [/ip address get [find interface="nama-interface"] address];
+:if ($IPBaru = $LogIP) do={
+:log info "->> IP Speedy Anda Tidak Berubah";
+};
+:if ($IPBaru != $LogIP) do={
+:log info "->> IP Speedy Anda Berubah $IPBaru";
+:set LogIP $IPBaru;
+:delay 5s;
+/tool e-mail send to="to-mail@gmail.com" from=from-mail@gmail.com server=74.125.129.108 start-tls=yes subject="IP Speedy Anda Berubah" body="IP interface Speedy Anda Yang Baru :[ $LogIP ]";
+};
+}
+:if ($s != "connected") do={
+:log info message="->> Status Koneksi: Terminating..";
+}
+
+/system scheduler
+add disabled=no interval=10m name=IP-PUBLIC on-event=GET-IP-PUBLIC policy=ftp,read,write,policy,test,winbox,password,sniff,sensitive,api

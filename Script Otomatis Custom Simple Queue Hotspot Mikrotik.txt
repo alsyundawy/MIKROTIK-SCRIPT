@@ -1,0 +1,14 @@
+Siapa tau berguna buat otomatis custom simple queue untuk hotspot
+1.Syarat Rate Limit (rx/tx) dikosongin
+2.Jika ada parent tinggal tambahkan script untuk parent contoh parent="3.PREMIUM"
+3.Jika menggunakan user manager tinggal masukin nama profile hotspot ke dalam Group name pada usermanager, jangan lupa Rate limit di kosongin
+
+# Script Pada On Login:
+:local datetime [/system clock get date];
+:local timedate [/system clock get time];
+/queue simple add name="$user -> $address" comment=("Login at: [ $timedate - $datetime ] From: [ $interface ] Mac: [ ".$"mac-address"." ]") target="$address" max-limit=1M/1M
+:log warning ("--> [ $user ] Login at: [ $timedate - $datetime ] From: [ $interface ] Mac: [ ".$"mac-address"." ]")
+
+# Script Pada On Logout:
+/queue simple remove [find name="$user -> $address"] ;
+:log warning ("--> [ $user ] Logout at: [ $timedate - $datetime ] From: [ $interface ] Mac: [ ".$"mac-address"." ]")

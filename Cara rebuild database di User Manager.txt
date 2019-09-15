@@ -1,0 +1,2 @@
+#Cara rebuild database di User Manager
+/tool user-manager database rebuild

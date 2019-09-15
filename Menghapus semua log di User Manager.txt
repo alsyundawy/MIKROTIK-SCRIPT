@@ -1,0 +1,2 @@
+#Cara untuk menghapus semua log di User Manager
+/tool user-manager database clear-log

@@ -1,0 +1,2 @@
+# Cara Reset atau membersikan database User Manager ke default
+/tool user-manager database clear

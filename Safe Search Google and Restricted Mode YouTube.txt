@@ -1,0 +1,26 @@
+/ip firewall nat
+add action=redirect chain=dstnat dst-port=53 protocol=udp
+
+/ip dns set allow-remote-requests=yes
+
+/ip dns static
+add address=216.239.38.120 name=google.com comment="Pencarian Mode Aman"
+add address=216.239.38.120 name=www.google.com comment="Pencarian Mode Aman"
+add address=216.239.38.120 name=https://google.com comment="Pencarian Mode Aman"
+add address=216.239.38.120 name=https://www.google.com comment="Pencarian Mode Aman"
+add address=216.239.38.120 name=google.com.mx comment="Pencarian Mode Aman"
+add address=216.239.38.120 name=www.google.com.mx comment="Pencarian Mode Aman"
+add address=216.239.38.120 name=https://google.com.mx comment="Pencarian Mode Aman"
+add address=216.239.38.120 name=https://www.google.com.mx comment="Pencarian Mode Aman"
+
+/ip dns static
+add address=216.239.38.119 name=youtube.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=www.youtube.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=https://www.youtube.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=m.youtube.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=https://m.youtube.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=youtubei.googleapis.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=https://youtubei.googleapis.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=youtube.googleapis.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=https://youtube.googleapis.com comment="Mode Youtube Aman"
+add address=216.239.38.119 name=www.youtube-nocookie.com comment="Mode Youtube Aman"

@@ -1,0 +1,2 @@
+#cara reset melalui script dari scheduler atau dari scriptar atau terminal
+/system reset-configuration

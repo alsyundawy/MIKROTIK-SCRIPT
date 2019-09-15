@@ -1,0 +1,43 @@
+Jaringan Warnet atau Hotspot tidak peduli menggunakan router Mikrotik atau Cisco sebenarnya tidak aman 100%, dengan hanya melihat beberapa celah yang terbuka sebenarnya bisa saja seseorang mencoba menyusup kedalamam jaringan kita.
+
+Untuk memastikan aman tidaknya jaringan Router kita,silahkan ditest aja langsung dengan menggunakan tool ini.
+
+1. Buka site https://www.grc.com
+2. Pilih tab "Services"
+3. Pilih "ShildsUP!"
+4. Tekan tombol "Proceed"
+5. pilih Tab "All Service Port"
+6. Biarkan Proses scaning port berjalan
+
+Hasil Scan Port Jaringan BuanaNET saat ini.
+================================================================
+GRC Port Authority Report created on UTC: 2015-03-28 at 16:22:33
+Results from scan of ports: 0-1055
+0 Ports Open
+1055 Ports Closed
+1 Ports Stealth
+---------------------
+1056 Ports Tested
+NO PORTS were found to be OPEN.
+The port found to be STEALTH was: 53
+Other than what is listed above, all ports are CLOSED.
+TruStealth: FAILED - NOT all tested ports were STEALTH,
+                   - NO unsolicited packets were received,
+                   - A PING REPLY (ICMP Echo) WAS RECEIVED.
+============================================================
+Diatas adalah hasil scanning port milik saya dan bisa dipastikan hanya ada satu celah yang terbuka yaitu di port 53 (DNS). Jika milik rekan semua banyak port yang terbuka dan memang tidak digunakan sebaiknya ditutup saja terutama untuk koneksi port SSH, Telnet dan FTP karena serangan banyak terjadi di arena ini.
+
+Sedikit masukan port yang rentang terhadap serangan yang sebaiknya di perhatikan:
+Telnet (23)
+SSH (22)
+FTP (21)
+WINBOX (8291)
+WWW (80)
+WWW-SSL (443)
+API (8728)
+API-SSL (8729)
+DNS (53, 5353, 443)
+PROXY (3128)
+PROXY (8080)
+
+Salam - BuanaNET

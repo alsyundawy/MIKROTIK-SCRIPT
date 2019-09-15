@@ -1,0 +1,7 @@
+# Cara mengaktifkan IP CLOUD, ini cara lain masuk kedalam router selain menggunakan ip public atau vpn port forwarding, jangan lupa mengaktifkan DMZ pada modem agar router bisa diakses dari luar.
+
+/ip cloud set ddns-enabled=yes
+/ip cloud print
+
+jangan lupa catat dns-name: 
+2f2c012xxxxxx.sn.mynetname.net

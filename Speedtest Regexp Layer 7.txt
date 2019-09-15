@@ -1,0 +1,3 @@
+# Speedtest Regexp Layer 7
+/ip firewall layer7-protocol
+add name=speedtest regexp="^.+(speedtest).*\$"

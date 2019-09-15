@@ -1,0 +1,1 @@
+:for e from 1  to 254 do={ /queue simple add name="CLIENT-$e" target="192.168.1.$e" max-limit=1M/2M}

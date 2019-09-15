@@ -1,0 +1,11 @@
+Disini saya share cara menonaktifkan pencarian aman google yaitu dengan cara menonaktifkan Google SSL secara langsung dari Mikrotik. Cara ini berguna untuk mengubah HTTPS ke HTTP dengan harapan agar content bisa ter Cache untuk keperluan Proxy Internal atau Proxy  External (umumnya Squid/Lusca).
+
+Caranya sangat mudah yaitu dengan memaksa DNS Static langsung dari mikrotik.
+
+/ip dns static 
+add address=216.239.32.20 name=www.google.com 
+add address=216.239.32.20 name=www.google.co.id
+
+Google memiliki IP dinamic yang sangat banyak dengan top level domain hampir disetiap negara, karena kita di indonesia jadi paling akan diredirect ke google.co.id dan google.com
+
+Selengkapnya lihat Gambar dikomentar :)

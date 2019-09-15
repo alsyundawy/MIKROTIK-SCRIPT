@@ -1,0 +1,7 @@
+#cara clear log di Mikrotik
+
+#pertama paste script dibawah ini di terminal
+/system logging action set memory memory-lines=1
+
+#kemudian paste kembali script dibawah ini
+/system logging action set memory memory-lines=100

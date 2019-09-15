@@ -1,0 +1,27 @@
+Membatasi Profile Hotspot menggunakan Multi Login (1 profile diperkosa rame2) terkadang memusingkan, karena Bandwidth yang di share biasanya tidak menggunakan Total Limit Bandwidth tapi justru malah diberikan bandwidth dengan kecepatan yang sama kepada setiap IP. Sebenarnya ini gak masalah kalau kita menggunakan Mangle dan Queue Tree tapi akan beda cerita jika menggunakan simple Queue. 
+
+Sebenarnya cara ini cukup menarik bagi pemain hotspot yang ingin memberikan tambahan akses gratis buat user di cafe atau warnet miliknya dan tentu saja tidak mengganggu user hotspot yang berbayar, karena sudah di limit apa adanya :)
+
+Buat IP Address baru = 10.5.10.1/24 (bebas aja)
+IP Pool = 10.5.10.2-10.5.10.254
+Interface hotspot [wlan-hotspot] = ganti dengan nama interface hotspot masing2 jika sudah ada yang lama tidak masalah karena memang itu tujuan kita sebenarnya, khan untuk satu interface bisa di set untuk multi IP :)
+
+/ip address
+add address=10.5.10.1/24 comment="Login Multi User" interface=[wlan-hotspot] network=10.5.10.0
+
+/ip pool
+add name=hs_multi_user ranges=10.5.10.2-10.5.10.254
+
+/ip firewall nat
+add action=masquerade chain=srcnat comment="masquerade hotspot network multi login" src-address=10.5.10.0/24
+
+/ip hotspot user profile
+add address-pool=hs_multi_user name=multi-user shared-users=10
+
+/ip hotspot user
+add name=muser password=12345 profile=multi-user
+
+/queue simple
+add max-limit=256k/512k name="Multi User" target=10.5.10.0/24 total-queue=download
+
+Jangan lupa untuk drag posisinya paling atas diatas queue hs

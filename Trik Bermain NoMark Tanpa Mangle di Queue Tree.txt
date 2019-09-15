@@ -1,0 +1,6 @@
+Bermain no-mark tanpa mangle di Queue Tree lumayan meringankan beban router bagus digunakan untuk hotspot yang gak mau ribet dimangle, trik ini juga bisa digunakan untuk memfilter paket dimangle yang bocor.
+
+/queue tree
+add max-limit=10M name=2.Upload packet-mark=no-mark parent=E1-WAN queue= default
+add max-limit=10M name=3.Download packet-mark=no-mark parent=E4-LAN queue=default
+add max-limit=20M name="1.Total No-mark" packet-mark=no-mark parent=global queue=default

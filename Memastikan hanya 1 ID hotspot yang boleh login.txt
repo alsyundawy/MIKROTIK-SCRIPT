@@ -1,0 +1,32 @@
+Memastikan hanya 1 ID hotspot yang boleh login bersamaan, jika ada 2 ID yang login otomatis akan mematikan ID yang pertama (catatan: bukan untuk multi shared user). Script ini juga bagus jika kita ingin pindah login ke perangkat lainnya tanpa harus logout dan menunggu session timeout pada perangkat sebelumnya. 
+Sebelum dipasang paling tidak dipahami dulu konsep kerja script ya jangan asal comot dan copas tar malah error hotspotnya :)
+Silahkan pasang langsung pada IP -> hotspot -> User Profile -> pilih nama profile -> Script -> On Login
+
+# Modifikasi Oleh Agus Ramadhani (BuanaNET)
+# Local Variables Section
+:local uname $user;
+:local usercount 0;
+:local usertime "00:00:00";
+# Variabel untuk pengguna yang sebelumnya login
+:local kickable;
+# Variabel untuk sesi max user yang diperbolehkan, jika 2 berarti hanya satu sesi diperbolehkan pada suatu waktu
+:local maxuser 2;
+# Memuat semua user aktif di hotspot
+:foreach i in=[/ip hotspot active find user=$uname] do= {
+# Beban UPTIME untuk semua user dan untuk dicocokkan kemudian
+:local curup [/ip hotspot active get $i uptime];
+# Jika pengguna sama sebelumnya cocok menggunakan UPTIME [above then 0] kemudian menetapkan variabel global untuk pemutusan
+:if ( $curup > $usertime ) do={
+:set usertime $curup;
+:set kickable $i;
+}
+:set usercount ($usercount+1);
+}
+# IF Function Fungsi bagi pengguna yang sudah login,
+:if ($usercount = $maxuser) do={
+:log info "Login user: $uname ($usercount/$maxuser) - Oldest $usertime will be logout!";
+# Menendang pengguna login sebelumnya (jika ID yang sama)
+/ip hotspot active remove numbers=$kickable;
+# Jika tidak, melakukan apa-apa ,hanya login , Anda dapat memodifikasi fungsi ini juga
+} else {
+:log info "Login user: $uname ($usercount/$maxuser)";

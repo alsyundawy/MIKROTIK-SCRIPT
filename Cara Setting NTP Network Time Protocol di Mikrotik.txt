@@ -1,0 +1,4 @@
+#NTP adalah Network Time Protocol, suatu protocol yang digunakan untuk melakukan sinkronisasi waktu dalam jaringan.
+
+/system ntp client
+set enabled=yes primary-ntp=111.92.175.248 secondary-ntp=130.54.208.201 server-dns-names=asia.pool.ntp.org

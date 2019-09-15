@@ -1,0 +1,17 @@
+1.Syarat Rate Limit (rx/tx) dikosongin
+2.Jika menggunakan user manager tinggal masukin nama profile hotspot ke dalam Group name pada usermanager, jangan lupa Rate limit di kosongin
+3. Sesuaikan nama parent, di contoh saya menggunakan "7.ALL HTSPOT"
+Saat user login Script ini akan otomatis menambahkan input baru pada queue tree dan mangle, dan akan menghapus kembali ketika user logout. kekurangan script ini saya membuat upload dan download dalam satu paket, kalau mau terpisah silahkan dimodifikasi sesuai kebutuhan kebutuhan :)
+
+# SCRIPT ON LOGIN
+:local datetime [/system clock get date];
+:local timedate [/system clock get time];
+[/ip firewall mangle add action=mark-packet chain=prerouting dst-address="$address" new-packet-mark=("paket-"."$address") passthrough=no comment=("paket-"."$address")];
+[/ip firewall mangle add action=mark-packet chain=forward dst-address="$address" new-packet-mark=("paket-"."$address") passthrough=no comment=("paket-"."$address")];
+[/queue tree add max-limit=2M name=("$user"." -> "."$address") comment=("Login at: [ $timedate - $datetime ] From: [ $interface ] Mac: [ ".$"mac-address"." ]") packet-mark=("paket-"."$address") queue="HS-Down" parent="7.ALL HOTSPOT"];
+:log warning ("--> [ $user ] Login at: [ $timedate - $datetime ] From: [ $interface ] Mac: [ ".$"mac-address"." ]")
+
+# SCRIPT ON LOGOUT
+/queue tree remove [find packet-mark=("paket-"."$address")] ;
+/ip firewall mangle remove [find where comment=("paket-"."$address")]
+:log warning ("--> [ $user ] Logout at: [ $timedate - $datetime ] From: [ $interface ] Mac: [ ".$"mac-address"." ]")
