@@ -1,0 +1,9 @@
+:local list
+:local address
+/ip firewall address-list
+:foreach a in=[find where dynamic=yes] do={
+      :set list [get $a list]
+      :set address [get $a address]
+      remove $a
+      add list=$list address=$address disabled=no
+}

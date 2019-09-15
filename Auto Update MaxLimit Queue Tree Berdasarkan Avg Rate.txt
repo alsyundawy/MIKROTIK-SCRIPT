@@ -1,0 +1,60 @@
+Contoh kasus:
+============
+Warnet si palui punya 20PC dan memiliki 5Mbps bandwidth dengan 2 prioritas yang harus dibuat seimbang yaitu antara pemakaian bandwidth game dan browsing. Biasanya saya hanya membuat kalkulasi sederhana dan sifatnya tetap yaitu 3Mbps Browsing dan sisanya 2Mbps game, ini memang dengan tujuan agar trafik bisa berjalan seimbang tanpa lag sama sekali untuk game.
+
+Yang jadi masalah gimana kalau yang main game cuman 2 orang dan 18 lainnya browsing? tentu banyak bandwidth yang mubazir khan :) Disini saya coba selesaikan masalah warnet si palui dengan logika manusia  yang akan kita rancang kedalam logika pemrograman.
+
+LOGIKA SEDERHANA:
+==============
+1. Warnet si palui saya setting mode Queue tree dengan metode PCQ
+2. Dari awal saya setting 3Mbps browsing dan 2Mbps Game
+3. Si palui ingin jika user yang main game semisalkan hanya 2 orang dan sisanya 18 orang browsing artinya bandwidth yang hilang untuk browsing sekitar 1500kbps, 500kbps tetap disisakan buat game agar tidak lag.
+4. Palui ingin Bandwidth yang tidak digunakan sekitar 1500kbps tadi dialokasikan otomatis kepada user browsing, sayangnya mikrotik tidak ada cara untuk itu dan harus menggunakan scripting agar bisa melakukan tugas tersebut.
+5. Script tidak bisa jalan tanpa bantuan scheduler jadi silahkan setting waktu pada scheduler sesuai kebutuhan jangan terlalu cepat jangan juga terlalu lambat.
+
+LOGIKA SCRIPTING SEDERHANA:
+#===========================================#
+# Scripting version 1.0                                                   
+# Scripting Auto Update Max-Limit Queue Tree                           
+# by Agus ramadhani - oom@o-om.com    
+
+# info:                                                                   
+# sesuaikan dan ganti parent "Game Onlines" dengan parent kalian        
+# sesuaikan dan ganti parent "Global Browsing" dengan parent kalian        
+#===========================================#
+:global SetMaxLimit;
+:global BW3M 3000000;
+:global BW4M 4000000;
+:global BW5M 5000000;
+:local avgRate [/ queue tree get "Games Onlines" rate]
+:log info "Debug --> $SetMaxLimit";
+:log info "Debug --> $avgRate";
+:log info "Debug --> ($avgRate < 500000)";
+:log info "Debug --> ($avgRate = 0 or $avgRate < 1000)";
+:if ($avgRate < 500000)  do={
+:if ($avgRate = 0 or $avgRate < 1000) do={
+:set SetMaxLimit $BW5M;
+:log info "--> Max-limit Browsing berubah ke 5Mbps";
+} else={
+:set SetMaxLimit $BW4M;
+:log info "--> Max-limit Browsing berubah ke 4Mbps";
+};
+} else={
+:set SetMaxLimit $BW3M;
+:log info "--> Max-limit Browsing berubah ke 3Mbps";
+};
+
+/ queue tree set "Global Browsing" max-limit=$SetMaxLimit
+};
+#=============================================#
+# jika ingin setting pada sub parent                                    
+#/queue tree {set [find parent="Global Browsing"] max-limit=$SetMaxLimit
+# jika ingin mengambil max-limit pada parent                           
+#:local maxLimit [/ queue tree get "Nama parent" max-limit]                
+#==============================================#
+
+Ini murni script konsep dasar yang saya buat, silahkan di kembangkan sesuai kebutuhan.
+
+Ref:
+http://wiki.mikrotik.com/wiki/Manual:Scripting#Scripting_language_manual
+http://wiki.mikrotik.com/wiki/Manual:Scripting-examples

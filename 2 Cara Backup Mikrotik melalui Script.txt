@@ -1,0 +1,5 @@
+# backup semua isi dalam bentuk script (file .rsc) 
+/exp file=namafile
+
+# backup semua isi dalam bentuk file terenkirpsi (file .backup) 
+/system backup save name=namafile.backup

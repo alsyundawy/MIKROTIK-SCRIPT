@@ -1,0 +1,15 @@
+# Cara Auto Login WMS (wifi.id) di Mikrotik
+:if ([/ping address=1.1.1.1 count=5] = 0) do={
+/ip dns cache flush
+/ip dhcp-client release [find interface=WLAN-INTERFACE]
+delay 5
+log error ("WMS Down")
+:local ip [/ip address get [/ip address find interface="WLAN-INTERFACE"] address];
+:local mac [/interface wireless get [ find default-name="WLAN-INTERFACE" ] mac-address];
+:local ip [put [:pick $ip 0 [:find $ip "/"]]];
+/tool fetch http-method=post http-data="username=username@freeMS&password=password" url=("https://welcome2.wifi.id/wms/?gw_id=GWID&client_mac=xxxxxxxxxxxx&wlan=xxxxxxxxxxxxxxxxxx:SSID%20WMS") keep-result=no;
+} else {
+log warning ("WMS UP")
+}
+
+https://tigabelasnet.blogspot.com
